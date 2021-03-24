@@ -1,6 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStylesHome = makeStyles({
+    contentWrap: {
+        border: "0.5px solid #2f3336",
+        borderBottom: "none",
+        maxHeight: "100%",
+        padding: "0px !important"
+    },
     wrpper: {
         display: "flex",
         height: "100vh"
@@ -22,6 +28,12 @@ export const useStylesHome = makeStyles({
         height: "100vh",
         maxHeight: "100%"
 
+    },
+    tweetsLoading: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 50
     },
     sideBarBtn: {
         fontWeight: 600,
@@ -64,8 +76,8 @@ export const useStylesHome = makeStyles({
 
     },
     mainTitle: {
-        border: "0.5px solid #2f3336",
-        borderBottom: "none",
+        borderBottom: "0.5px solid #2f3336",
+        // borderBottom: "none",
         borderTop: "none", 
 
         padding: "10px 20px",
@@ -76,8 +88,8 @@ export const useStylesHome = makeStyles({
         }
     },
     tweetForm: {
-        border: "0.5px solid #2f3336",
-
+        borderBottom: "0.5px solid #2f3336",
+        margin: 0,
         padding: 20,
         paddingBottom: 0,
         "& > .MuiDivider-light": {
@@ -131,6 +143,10 @@ export const useStylesHome = makeStyles({
     },
     tweetFormSend: {
         fontWeight: 700,
+        "&.Mui-disabled" : {
+            color: "#ffffff47",
+            backgroundColor: "rgb(26 145 218 / 28%)"
+        },
         
     },
     searchInput: {
@@ -249,23 +265,21 @@ export const useStylesHome = makeStyles({
         height: 35
     },
     tweetFormProgressText: {
-        color: "#fff",
-        display: "none",
-        fontWeight: 600
+        color: "rgb(110, 118, 125)",
+        fontSize: 13,
+
+        fontWeight: 400
     },
     tweetFormProgress: {
         marginRight: 10,
 
     },
     tweetFormProgressBg: {
-        width: "20px !important",
-        height: "20px !important",
-        marginRight: -20,
+        transition: "0.5s",
         color: "rgb(117 117 117)"
     },
     tweetFormProgressMn: {
-        width: "20px !important",
-        height: "20px !important",
+        transition: "0.5s",
         color: "rgba(29,161,242,1.00)"
 
     },
@@ -306,8 +320,10 @@ export const useStylesHome = makeStyles({
     },
     tweetsWrap: {
         maxHeight: "100%",
-        overflowY: "scroll"
-    }
+        overflowY: "scroll",
+        height: "100%"
+    },
+    
 });
 
 
@@ -371,10 +387,104 @@ export const useStylesSignIn = makeStyles({
         marginBottom: 20,
         padding: "21px 0"
     },
-    signSideBtnUp: {
-        // color: "#fff",
-    },
-    signSideBtnIn: {
+    modalBtn: {
+        marginBottom: 20
 
+    },
+    modalBlock: {
+        // background: "#000"
+    },
+    modalInput: {
+        marginBottom: 20,
+        color: "#fff",
+        "& input": {
+            color: "#fff",
+
+
+        },
+        "& input::placeholder": {
+            color: "#fff",
+        }
+    },
+    modalBlockContent: {
+        width: 500,
+        background: "#000"
+
+    },
+    modalBlockTitle: {
+        background: "#000",
+        "& h2": {
+            color: "#fff",
+            display: "flex",
+            justifyContent: "space-between"
+        }    
+    },
+    modalRegTextSecond: {
+        color: "rgb(110, 118, 125)",
+        fontWeight: 400,
+        fontSize: 15
+
+    },
+    modalRegTextMain: {
+        color: "rgb(255, 255, 255)",
+        fontWeight: 600,
+        fontSize: 17
+    },
+    modalRegSelect: {
+        width: "100%"
     }
 });
+
+
+export const useStylesTweet = makeStyles({
+    wrpper: {
+        display: "flex",
+        height: "100vh"
+    },
+    dFlex: {
+        display: "flex"
+    },
+    tweet: {
+        borderTop: "0.5px solid #2f3336",
+        borderBottom: "none", 
+        padding: 20,
+        paddingBottom: 0,
+
+    },
+    tweetUserName: {
+        fontSize: 15,
+        marginLeft: 20,
+        marginBottom: 3,
+
+        color: "rgb(110, 118, 125)",
+        "& b": {
+            color: "#ffffff",
+            marginRight: 7,
+
+        }
+    },
+    tweetContent: {
+        color: "#ffffff",
+        fontSize: 15,
+        marginLeft: 20,
+        lineHeight: 1.3
+        
+    },
+    tweetBtns: {
+        marginLeft: 46,
+        marginTop: 0,
+
+        display: "flex",
+        justifyContent: "space-between",
+        maxWidth: "425px",
+        "& button:hover": {
+            
+        },
+        "& svg": {
+            color: "#ffffff",
+            opacity: 0.5,
+            fontSize: 19,
+
+        }
+    }
+  });

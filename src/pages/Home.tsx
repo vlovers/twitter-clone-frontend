@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
@@ -40,17 +40,42 @@ import {
     BeachAccess as BeachAccessIcon
 } from '@material-ui/icons';
 
-import { useStylesHome } from '../style';
+import { useStylesHome, useStylesSignIn } from '../style';
+import { Tags } from '../components/Tags';
 import { Tweet } from '../components/Tweet';
+
 import { SideBar } from '../components/SideBar';
 import { TweetForm } from '../components/TweetForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTweets } from '../store/ducks/tweets/actionCreatores';
+import { selectIsTweetsLoading, selectTweets, selectTweetsItems } from '../store/ducks/tweets/selectors';
+import { ModalBlock } from '../components/Modal';
+import { fetchTags } from '../store/tags/actionCreatores';
 
 
 
-export const Home = () => {
+export const Home = (): JSX.Element => {
     const classes = useStylesHome();
+    const classesSignIn = useStylesSignIn();
+    const dispatch = useDispatch();
+    const tweets = useSelector(selectTweetsItems)
+    const isLoading = useSelector(selectIsTweetsLoading)
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
+
+    useEffect(() => {
+        dispatch(fetchTweets());
+        dispatch(fetchTags());
+    }, [dispatch])
+    
     return (
         <Grid className={classes.fsd} container spacing={2}>
             <Grid className={classes.sideBarWrapp} item xs={3}>
@@ -60,9 +85,17 @@ export const Home = () => {
                     <Button
                         variant="contained"
                         color="secondary"
+                        onClick={handleClickOpen}
                         className={classes.onTweetBtn}>
                         Твитнуть
                     </Button>
+                    <ModalBlock
+                        classes={classesSignIn}
+                        open={open}
+                        onClose={handleClose}
+                        >
+                        <TweetForm classes={classes}/>
+                    </ModalBlock>
                 </div>
 
                 <ListItem className={classes.sideBarUserInfo}>
@@ -72,23 +105,20 @@ export const Home = () => {
                     <ListItemText primary="Photos" secondary="Jan 9, 2014" />
                 </ListItem>
             </Grid>
-            <Grid style={{maxHeight: "100%"}} item xs={6}>
+            <Grid className={classes.contentWrap} item xs={6}>
                 <div className={classes.mainTitle}>
                     <Typography variant="h6">Головна</Typography>
                 </div>
 
                 <div className={classes.tweetsWrap}>
                     <TweetForm classes={classes}/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
-                    <Tweet/>
+                    {
+                        isLoading ? <div className={classes.tweetsLoading}><CircularProgress/></div> : 
+                        tweets.map(tweet => (
+                            <Tweet key={tweet._id} text={tweet.text} user={tweet.user}/>
+                        ))
+                    }
+                    
                 </div>
 
 
@@ -107,27 +137,7 @@ export const Home = () => {
                     }}
                 />
 
-                <List className={classes.trendsList}>
-                    <ListItem className={classes.trendsListTitle}>
-                        <ListItemText className={classes.trendsListText} primary="Тренды для вас" />
-                    </ListItem>
-                    <Divider light/>
-                    <ListItem button>
-                        <ListItemText className={classes.trendsListText} primary="Photos" secondary="Jan 9, 2014" />
-                    </ListItem>
-                    <Divider light/>
-                    <ListItem button>
-                        <ListItemText  className={classes.trendsListText} primary="Work" secondary="Jan 7, 2014" />
-                    </ListItem>
-                    <Divider light/>
-                    <ListItem button>
-                        <ListItemText  className={classes.trendsListText} primary="Vacation" secondary="July 20, 2014" />
-                    </ListItem>
-                    <Divider light/>
-                    <ListItem className={classes.trendsListShowMore} button>
-                        <ListItemText className={classes.trendsListText} primary="Показать больше" />
-                    </ListItem>
-                </List>
+                <Tags classes={classes}/>
 
                 <List className={classes.trendsList}>
                     <ListItem className={classes.trendsListTitle}>

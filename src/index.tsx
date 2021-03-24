@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App/App';
 import { ThemeProvider } from '@material-ui/styles';
-import { theme } from './theme'
+import { Provider } from 'react-redux';
 
+import { store } from './store/ducks/store';
+import App from './App';
+import { theme } from './theme'
+import  './style.css'
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <App />
+            <Provider store={store}>
+                <App />
+            </Provider>
         </ThemeProvider>
     </React.StrictMode>,
-document.getElementById('root')
+    document.getElementById('root')
 );
