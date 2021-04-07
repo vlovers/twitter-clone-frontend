@@ -7,13 +7,16 @@ import { store } from './store/ducks/store';
 import App from './App';
 import { theme } from './theme'
 import  './style.css'
+import {BrowserRouter as Router} from 'react-router-dom';
 ReactDOM.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <ThemeProvider theme={theme}>
             <Provider store={store}>
-                <App />
+                <Router>
+                    <App />
+                </Router>
             </Provider>
-        </ThemeProvider>
-    </React.StrictMode>,
+        </ThemeProvider>,
+    // </React.StrictMode>,
     document.getElementById('root')
 );

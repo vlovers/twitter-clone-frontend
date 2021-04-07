@@ -1,4 +1,4 @@
-export enum LoadingState {
+export enum LoadingStatus {
     LOADING = "LOADING",
     LOADED = "LOADED",
     ERROR = "ERROR",
@@ -14,6 +14,7 @@ export interface Tag {
 export interface Tweet {
     _id: string;
     text: string;
+    createdAt: string
     user: {
         fullname: string;
         username: string;
@@ -23,10 +24,10 @@ export interface Tweet {
 
 export interface TweetsState {
     items: Tweet[];
-    loadingState: LoadingState;
+    LoadingStatus: LoadingStatus;
 }
 
 export interface TagsState {
     items: Tag[];
-    loadingState: LoadingState;
+    LoadingStatus: LoadingStatus;
 }

@@ -4,13 +4,14 @@ import { IconButton, Avatar, Typography } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import RepeatSharpIcon from '@material-ui/icons/RepeatSharp';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import { makeStyles } from '@material-ui/core/styles';
 import ReplyIcon from '@material-ui/icons/Reply';
 import { useStylesTweet } from '../style';
-
+import { formatDate } from '../utils/formatDate';
 
 interface TweetProps {
+    _id: string,
     text: string;
+    createdAt: string,
     user: {
         fullname: string;
         username: string;
@@ -18,21 +19,20 @@ interface TweetProps {
     }
 }
 
-export const Tweet: React.FC<TweetProps> = ({ text, user }: TweetProps) => {
+export const Tweet: React.FC<TweetProps> = ({ _id, text, createdAt, user }: TweetProps) => {
     const classes = useStylesTweet();
-
+    
     return (
         <div className={classes.tweet}>
             <div className={classes.dFlex}>
                 <div>
-                    <Avatar alt="Remy Sharp" src={user?.avatarUrl} />
                     <Avatar alt="Remy Sharp" src={user?.avatarUrl} />
                 </div>
                 <div>
                     <div>
                     <Typography variant="h6" className={classes.tweetUserName}>
                     <b>{user.fullname}</b>
-                    {user.username} · 1h
+                    {user.username} · {formatDate(new Date(createdAt))}
                     </Typography>
                 
 
@@ -58,5 +58,6 @@ export const Tweet: React.FC<TweetProps> = ({ text, user }: TweetProps) => {
                 
             </div>
         </div>
+
     )
 }

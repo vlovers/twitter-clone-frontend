@@ -1,13 +1,15 @@
 import { createSelector } from "reselect";
 import { RootStore } from "../store";
-import { LoadingState, TweetsState } from "./contracts/state";
+import { AddFormState, LoadingStatus, TweetsState } from "./contracts/state";
 
-export const selectTweets = (state: RootStore) : TweetsState => state.tweets;
+export const selectTweetsStatee = (state: RootStore) : TweetsState => state.tweets;
 
-export const selectLoadingState = (state: RootStore) : LoadingState => selectTweets(state).loadingState;
-export const selectIsTweetsLoading = (state: RootStore) : boolean => selectLoadingState(state) === LoadingState.LOADING;
-export const selectIsTweetsLoaded = (state: RootStore) : boolean => selectLoadingState(state) === LoadingState.LOADED;
+export const selectLoadingStatus = (state: RootStore): LoadingStatus => selectTweetsStatee(state).LoadingStatus;
+export const selectIsTweetsLoading = (state: RootStore): boolean => selectLoadingStatus(state) === LoadingStatus.LOADING;
+export const selectIsTweetsLoaded = (state: RootStore): boolean => selectLoadingStatus(state) === LoadingStatus.LOADED;
+export const selectAddFormState = (state: RootStore): AddFormState => selectTweetsStatee(state).addFormState;
 
 
 
-export const selectTweetsItems = createSelector(selectTweets, tweets => tweets.items);
+
+export const selectTweetsItems = (state: RootStore) => selectTweetsStatee(state).items;

@@ -1,8 +1,13 @@
 import axios from "axios";
-import { TagsState } from "../../store/tags/contracts/state";
+import { TagsState } from "../../store/ducks/tags/contracts/state";
 
 export const TagsApi = {
-    fetchTags(): Promise<TagsState['items']>  {
-        return axios.get('/tags').then(({ data }) => data).catch((err) => err)
+    async fetchTags(): Promise<TagsState['items']>  {
+        try {
+            const { data } = await axios.get('/tags');
+            return data;
+        } catch (err) {
+            return err;
+        }
     }
 }

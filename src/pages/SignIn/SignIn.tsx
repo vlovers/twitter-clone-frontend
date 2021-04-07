@@ -14,8 +14,9 @@ import {
 } from '@material-ui/core';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
-import { useStylesSignIn } from '../style';
-import { ModalBlock } from '../components/Modal';
+import { useStylesSignIn } from '../../style';
+import { ModalBlock } from '../../components/Modal';
+import LoginModal from './components/LoginModal';
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -95,48 +96,11 @@ function SignIn() {
                 </Button>
             </div>
 
-            {/* <ModalBlock 
-                onClose={handleClose} 
-                title="Войти в акаунт" 
-                open={open} 
-                classes={classes}>
-                <FormControl fullWidth>
-                    <FormGroup >
-                        <TextField
-                            fullWidth
-                            autoFocus
-                            id="email"
-                            label="E-mail"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="filled"
-                            className={classes.modalInput}
-                        />
 
-                        <TextField
-                            fullWidth
-                            autoFocus
-                            id="password"
-                            label="Password"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="filled"
-                            className={classes.modalInput}
-                        />
-                        <Button 
-                            fullWidth           
-                            variant="contained" 
-                            color="primary" 
-                            className={classes.modalBtn}>
-                            Войти
-                        </Button>
-                    </FormGroup>
-                </FormControl>
-            </ModalBlock> */}
+            <LoginModal open={open} handleClose={handleClose}/>
+           
             
-            <ModalBlock 
+            {/* <ModalBlock 
                 onClose={handleClose} 
                 title="Cоздайте учетную запись" 
                 open={open} 
@@ -212,7 +176,7 @@ function SignIn() {
                         </div>
                     </FormGroup>
                 </FormControl>
-            </ModalBlock>
+            </ModalBlock> */}
         </div>
     )
 }

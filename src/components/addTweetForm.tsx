@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
     Button,
     Avatar,
@@ -8,7 +8,7 @@ import {
     CircularProgress,
     Typography,
     IconButton,
-    Hidden
+    Snackbar,
 } from '@material-ui/core';
 
 
@@ -19,38 +19,56 @@ import {
     SubjectOutlined as SubjectOutlinedIcon,
     SentimentSatisfiedAltOutlined as SentimentSatisfiedOutlinedIcon,
     EventNoteOutlined as EventNoteOutlinedIcon,
-    Image as ImageIcon,
-    Work as WorkIcon,
-    BeachAccess as BeachAccessIcon
 } from '@material-ui/icons';
 
 import { useStylesHome } from '../style';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAddTweet } from '../store/ducks/tweets/actionCreatores';
+import { selectAddFormState } from '../store/ducks/tweets/selectors';
+import { AddFormState } from '../store/ducks/tweets/contracts/state';
 
 interface TweetFormProps {
     classes: ReturnType<typeof useStylesHome>;
 }
 
-export const TweetForm: React.FC<TweetFormProps> = ({
+export const AddTweetForm: React.FC<TweetFormProps> = ({
     classes,
 }: TweetFormProps): React.ReactElement => {
-
     const [text, setText] = useState<string>("");
+    const [visibleNotification, setVisibleNotification] = useState<boolean>(false);
+
+    const dispatch = useDispatch();
+    const addFormState = useSelector(selectAddFormState)
     const textLimitPercent = (text.length / 280) * 100;
+
+    useEffect(() => {
+        if (addFormState === AddFormState.ERROR) {
+            setVisibleNotification(true);
+        }
+    })
+
+    const handleClickAddTweet = () => {
+        dispatch(fetchAddTweet(text))
+        setText('');
+    }   
+
+    const handleCloseNotification = () => {
+        setVisibleNotification(false);
+    }   
 
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>) => {
         if (e.currentTarget && text.length <= 280) {
             setText(e.currentTarget.value)
-
-            
         }
-        console.log(text.length);
-
     }
-
-    
 
     return (
         <div className={classes.tweetForm}>
+            <Snackbar 
+                onClose={handleCloseNotification} 
+                message="Ошибка при добавлении твита =(" 
+                open={visibleNotification}/>
+
             <div className={classes.dFlex}>
                 <div>
                     <Avatar alt="Remy Sharp" src="https://readmyanswers.com/wp-content/uploads/2018/02/8.-Lob-Cut-e1517864818433.jpg" />
@@ -132,9 +150,10 @@ export const TweetForm: React.FC<TweetFormProps> = ({
                     
 
                     <Button
+                        onClick={handleClickAddTweet}
                         variant="contained"
                         color="secondary"
-                        disabled={text.length >= 280}
+                        disabled={!text || addFormState === AddFormState.LOADING || text.length >= 280}
                         className={classes.tweetFormSend}>
                         Твитнуть
                     </Button>

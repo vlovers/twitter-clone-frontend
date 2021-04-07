@@ -45,14 +45,16 @@ import { Tags } from '../components/Tags';
 import { Tweet } from '../components/Tweet';
 
 import { SideBar } from '../components/SideBar';
-import { TweetForm } from '../components/TweetForm';
+import { AddTweetForm } from '../components/addTweetForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTweets } from '../store/ducks/tweets/actionCreatores';
-import { selectIsTweetsLoading, selectTweets, selectTweetsItems } from '../store/ducks/tweets/selectors';
+import { selectIsTweetsLoading, selectTweetsItems } from '../store/ducks/tweets/selectors';
 import { ModalBlock } from '../components/Modal';
-import { fetchTags } from '../store/tags/actionCreatores';
+import { fetchTags } from '../store/ducks/tags/actionCreatores';
+import { FullTweet } from '../components/FullTweet';
 
-
+import {Route, Link} from 'react-router-dom';
+import { BackButton } from '../components/BackButton';
 
 export const Home = (): JSX.Element => {
     const classes = useStylesHome();
@@ -60,7 +62,7 @@ export const Home = (): JSX.Element => {
     const dispatch = useDispatch();
     const tweets = useSelector(selectTweetsItems)
     const isLoading = useSelector(selectIsTweetsLoading)
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);  
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -80,7 +82,9 @@ export const Home = (): JSX.Element => {
         <Grid className={classes.fsd} container spacing={2}>
             <Grid className={classes.sideBarWrapp} item xs={3}>
                 <div>
-                    <TwitterIcon className={classes.sideBarLogo}/>
+                    <Link to={`/home`}>
+                        <TwitterIcon className={classes.sideBarLogo}/>
+                    </Link>
                     <SideBar classes={classes}/>
                     <Button
                         variant="contained"
@@ -94,7 +98,7 @@ export const Home = (): JSX.Element => {
                         open={open}
                         onClose={handleClose}
                         >
-                        <TweetForm classes={classes}/>
+                        <AddTweetForm classes={classes}/>
                     </ModalBlock>
                 </div>
 
@@ -107,22 +111,39 @@ export const Home = (): JSX.Element => {
             </Grid>
             <Grid className={classes.contentWrap} item xs={6}>
                 <div className={classes.mainTitle}>
-                    <Typography variant="h6">Головна</Typography>
-                </div>
-
-                <div className={classes.tweetsWrap}>
-                    <TweetForm classes={classes}/>
-                    {
-                        isLoading ? <div className={classes.tweetsLoading}><CircularProgress/></div> : 
-                        tweets.map(tweet => (
-                            <Tweet key={tweet._id} text={tweet.text} user={tweet.user}/>
-                        ))
-                    }
                     
+                    <Route exact path={["/home", "/home/search:any+"]}>
+                        <Typography variant="h6">Головна</Typography>
+                    </Route>
+                    <Route path={"/home/tweet"} >
+                        <div className={classes.dFlexAC} style={{height: 32}}>
+                            <BackButton/>
+                            <Typography variant="h6">Твитнуть</Typography>
+                        </div>
+                    </Route>
                 </div>
 
+                <Route exact path={["/home", "/home/search:any+"]}>
+                    <div className={classes.tweetsWrap}>
+                        <AddTweetForm classes={classes}/>
+                        <div className={classes.addFormTweetDivider}/>
+                        {
+                            isLoading ? <div className={classes.tweetsLoading}><CircularProgress/></div> : 
+                            tweets.map(tweet => (
+                                <Link to={`/home/tweet/${tweet._id}`}>
+                                    <Tweet key={tweet._id} {...tweet}/>
+                                </Link>
+                            ))
+                        }
+                        
+                    </div>
+                </Route>
 
+                <Route exact path="/home/tweet/:any+">
+                    <FullTweet/>
+                </Route>
             </Grid>
+
             <Grid item xs={3}>
                 <TextField
                     className={classes.searchInput}
@@ -145,7 +166,7 @@ export const Home = (): JSX.Element => {
                     </ListItem>
 
                     <Divider light/>
-
+                               
                     <ListItem button>
                         <ListItemAvatar>
                             <Avatar alt="Remy Sharp" src="https://readmyanswers.com/wp-content/uploads/2018/02/8.-Lob-Cut-e1517864818433.jpg" />
@@ -160,7 +181,7 @@ export const Home = (): JSX.Element => {
                     </ListItem>
 
                     <Divider light/>
-
+                           
                     <ListItem button>
                         <ListItemAvatar>
                             <Avatar alt="Remy Sharp" src="https://readmyanswers.com/wp-content/uploads/2018/02/8.-Lob-Cut-e1517864818433.jpg" />

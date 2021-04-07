@@ -19,6 +19,10 @@ export const useStylesHome = makeStyles({
 
         alignItems: "center",
     },
+    dFlexAC:{
+        display: "flex",
+        alignItems: "center"
+    },
     dFlex: {
         display: "flex",
     },
@@ -28,6 +32,11 @@ export const useStylesHome = makeStyles({
         height: "100vh",
         maxHeight: "100%"
 
+    },
+    addFormTweetDivider: {
+        width: "100%",
+        height: 12,
+        backgroundColor: "rgb(47, 51, 54)" 
     },
     tweetsLoading: {
         width: "100%",
@@ -88,7 +97,7 @@ export const useStylesHome = makeStyles({
         }
     },
     tweetForm: {
-        borderBottom: "0.5px solid #2f3336",
+        // borderBottom: "0.5px solid #2f3336",
         margin: 0,
         padding: 20,
         paddingBottom: 0,
@@ -392,7 +401,11 @@ export const useStylesSignIn = makeStyles({
 
     },
     modalBlock: {
-        // background: "#000"
+        backgroundColor: "rgba(91, 112, 131, 0.4)",
+        "& .MuiPaper-root": {
+            backgroundColor: "#000"
+        }
+
     },
     modalInput: {
         marginBottom: 20,
@@ -408,11 +421,12 @@ export const useStylesSignIn = makeStyles({
     },
     modalBlockContent: {
         width: 500,
-        background: "#000"
+        backgroundColor: "#000"
 
     },
     modalBlockTitle: {
         background: "#000",
+        borderBottomColor: "#2f3336", 
         "& h2": {
             color: "#fff",
             display: "flex",
@@ -487,4 +501,81 @@ export const useStylesTweet = makeStyles({
 
         }
     }
-  });
+});
+
+export const useStylesFullTweet = makeStyles({
+    wrpper: {
+        display: "flex",
+        height: "100vh"
+    },
+    dFlex: {
+        display: "flex",
+    },
+    tweet: {
+        borderTop: "0.5px solid #2f3336",
+        borderBottom: "0.5px solid #2f3336", 
+        padding: 20,
+        paddingBottom: 5,
+    },
+    userAvatar: {
+        marginTop: 5
+    },
+    tweetUserName: {
+        fontSize: 15,
+        marginLeft: 20,
+        marginBottom: 3,
+
+        color: "rgb(110, 118, 125)",
+        "& b": {
+            color: "#ffffff",
+            marginRight: 7,
+            display: "block"
+
+        }
+    },
+    tweetDate: {
+        color: "rgb(110, 118, 125)",
+        marginTop: 10,
+
+    },
+    tweetLikesCount: {
+        marginTop: 10,
+        fontSize: 15,
+        marginBottom: 3,
+
+        color: "rgb(110, 118, 125)",
+        "& b": {
+            color: "#ffffff",
+            marginRight: 7,
+        }
+    },
+    tweetDivider: {
+        backgroundColor: "#2f3336",
+        marginTop: 10,
+
+    },
+    tweetContent: {
+        color: "#ffffff",
+        fontSize: 23,
+        fontWeight: 400,
+        marginTop: 10,
+        lineHeight: 1.3
+        
+    },
+    tweetBtns: {
+        marginTop: 5,
+
+        display: "flex",
+        justifyContent: "space-around",
+        // maxWidth: 556,
+        "& button:hover": {
+            
+        },
+        "& svg": {
+            color: "#ffffff",
+            opacity: 0.5,
+            fontSize: 24,
+
+        }
+    }
+});
