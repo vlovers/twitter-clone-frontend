@@ -15,7 +15,7 @@ import { AddFormState, LoadingStatus } from './contracts/state';
 export function* fetchTweetsRequest() {
     try {
         const items: TweetsState[] = yield call(TweetsApi.fetchTweets);
-        console.log(items);
+
         
         yield put(setTweets(items))
     } catch (error) {

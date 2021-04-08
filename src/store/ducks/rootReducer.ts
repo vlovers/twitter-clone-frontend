@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { randomUsersReducer } from "./randomUsers/reducer";
 import { tagsReducer } from "./tags/reducer";
 import { tweetReducer } from "./tweet/reducer";
 import { tweetsReducer } from "./tweets/reducer";
@@ -9,5 +10,5 @@ export const rootReducer = combineReducers({
     tags: tagsReducer,
     tweet: tweetReducer,
     user: userReducer,
-
+    randomUsers: randomUsersReducer
 })

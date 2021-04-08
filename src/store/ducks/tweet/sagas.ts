@@ -8,7 +8,7 @@ export function* fetchTweetDataRequest({payload: tweetId}: fetchTweetDataActions
 
         
         const item: Tweet = yield call(TweetsApi.fetchTweetData, tweetId);
-        console.log(item);
+
         
         yield put(setTweetData(item))
     } catch (error) {

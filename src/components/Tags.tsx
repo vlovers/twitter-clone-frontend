@@ -14,7 +14,7 @@ interface TagsProps {
 export const Tags: React.FC<TagsProps> = ({ classes }) => {
     const items = useSelector(selectTagsItems);
     const isLoaded = useSelector(selectIsTagsLoaded);
-    console.log(items);
+
     
     return (
         <List className={classes.trendsList}>

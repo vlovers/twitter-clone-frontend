@@ -20,7 +20,7 @@ export const Notification: React.FC<NotificationProps> = ({children}) : React.Re
             text,
             type
         });
-        console.log(notificationObj);
+
         
         setOpen(true)
     };

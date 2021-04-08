@@ -57,7 +57,7 @@ import {Route, Link} from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
 import { RandomUsers } from '../components/RandomUsers';
 
-const Home = (): JSX.Element => {
+const UserPage = (): JSX.Element => {
     const classes = useStylesHome();
     const classesSignIn = useStylesSignIn();
     const dispatch = useDispatch();
@@ -167,4 +167,4 @@ const Home = (): JSX.Element => {
     )
 }
 
-export default Home
+export default UserPage

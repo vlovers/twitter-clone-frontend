@@ -1,6 +1,7 @@
 import { applyMiddleware, compose } from 'redux';
 import { createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { RandomUsersState } from './randomUsers/contracts/state';
 import { rootReducer } from './rootReducer';
 import rootSaga from './saga';
 import { TagsState } from './tags/contracts/state';
@@ -23,7 +24,7 @@ export interface RootStore {
     tweet: TweetState;
     tags: TagsState;
     user: UserState;
-
+    randomUsers: RandomUsersState;
 }
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)))

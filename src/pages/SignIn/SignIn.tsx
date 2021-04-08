@@ -17,41 +17,9 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import { useStylesSignIn } from '../../style';
 import { ModalBlock } from '../../components/Modal';
 import LoginModal from './components/LoginModal';
+import RegisterModal from './components/RegisterModal';
 
-const BootstrapInput = withStyles((theme) => ({
-    root: {
-      'label + &': {
-        marginTop: theme.spacing(3),
-      },
-    },
-    input: {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: theme.palette.background.paper,
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      padding: '10px 26px 10px 12px',
-      transition: theme.transitions.create(['border-color', 'box-shadow']),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
-      '&:focus': {
-        borderRadius: 4,
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
-    },
-  }))(InputBase);
+
 
 function SignIn() {
     const classes = useStylesSignIn();
@@ -65,10 +33,6 @@ function SignIn() {
         setOpen(false);
     };
 
-    const [age, setAge] = React.useState('');
-    const handleChange = (event: any) => {
-      setAge(event.target.value);
-    };
 
     return (
         <div className={classes.wrpper}>
@@ -98,85 +62,9 @@ function SignIn() {
 
 
             <LoginModal open={open} handleClose={handleClose}/>
-           
-            
-            {/* <ModalBlock 
-                onClose={handleClose} 
-                title="Cоздайте учетную запись" 
-                open={open} 
-                classes={classes}>
-                <FormControl fullWidth>
-                    <FormGroup >
-                        <TextField
-                            fullWidth
-                            autoFocus
-                            id="name"
-                            label="Имя"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="outlined"
-                            className={classes.modalInput}
-                        />
-                        <TextField
-                            fullWidth
-                            id="email"
-                            label="E-mail"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="outlined"
-                            className={classes.modalInput}
-                        />
-                        <Typography variant="h5" className={classes.modalRegTextMain}>
-                            Дата рождения
-                        </Typography>
-                        <Typography variant="h6" className={classes.modalRegTextSecond}>
-                            Эта информация не будет общедоступной. Подтвердите свой возраст, даже если эта учетная
-                            запись предназначена для компании, домашнего животного и т. д.
-                        </Typography>
+            {/* <RegisterModal open={open} handleClose={handleClose}/> */}
 
-                        
-                        <div className={classes.modalRegSelect}>
-                            <FormControl>
-                                <InputLabel htmlFor="demo-customized-textbox">Age</InputLabel>
-                                <BootstrapInput id="demo-customized-textbox" />
-                            </FormControl>
-                            <FormControl>
-                                <InputLabel id="demo-customized-select-label">Age</InputLabel>
-                                <Select
-                                labelId="demo-customized-select-label"
-                                id="demo-customized-select"
-                                value={age}
-                                onChange={handleChange}
-                                input={<BootstrapInput />}
-                                >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <FormControl>
-                                <InputLabel htmlFor="demo-customized-select-native">Age</InputLabel>
-                                <NativeSelect
-                                id="demo-customized-select-native"
-                                value={age}
-                                onChange={handleChange}
-                                input={<BootstrapInput />}
-                                >
-                                <option aria-label="None" value="" />
-                                <option value={10}>Ten</option>
-                                <option value={20}>Twenty</option>
-                                <option value={30}>Thirty</option>
-                                </NativeSelect>
-                            </FormControl>
-                        </div>
-                    </FormGroup>
-                </FormControl>
-            </ModalBlock> */}
+
         </div>
     )
 }
