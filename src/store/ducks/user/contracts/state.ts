@@ -12,9 +12,14 @@ export interface User {
     about?: string;
     token: string;
     website?: string;
+    avatar?: string;
+    createdAt?: Date;
+    followers: string[];
+    following: string[];
+
 }
 
 export interface UserState {
     data: User | undefined;
-    status: LoadingStatus;
+    LoadingStatus: LoadingStatus;
 }

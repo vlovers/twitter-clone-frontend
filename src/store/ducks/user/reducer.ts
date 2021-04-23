@@ -6,7 +6,7 @@ import { UserState } from './contracts/state';
 
 const initionUserState: UserState = {
     data: undefined,
-    status: LoadingStatus.NEVER
+    LoadingStatus: LoadingStatus.NEVER
 }
 
 export const userReducer = produce ((draft: Draft<UserState>, action: TweetActions) => {
@@ -14,10 +14,14 @@ export const userReducer = produce ((draft: Draft<UserState>, action: TweetActio
     switch (action.type) {
         case UserActionsType.SET_USER_DATA:
             draft.data = action.payload;
-            draft.status = LoadingStatus.SECCESS;
+            draft.LoadingStatus = LoadingStatus.SECCESS;
             break;
         case UserActionsType.SET_LOADING_STATE:
-            draft.status = action.payload;
+            draft.LoadingStatus = action.payload;
+            break;
+        case UserActionsType.SET_LOG_OUT:
+            draft.data = undefined;
+            draft.LoadingStatus = LoadingStatus.SECCESS;
             break;
         default:
             break;

@@ -12,13 +12,14 @@ export interface Tag {
 }
 
 export interface Tweet {
+    images: any;
     _id: string;
     text: string;
     user: {
         fullname: string;
         username: string;
-        avatarUrl: string;
-    } | undefined
+        avatar: string;
+    } | undefined;
 }
 
 export interface TweetsState {

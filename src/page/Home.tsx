@@ -2,43 +2,13 @@ import React, { useEffect } from 'react';
 import {
     Typography,
     InputAdornment,
-    Divider,
-    IconButton,
     TextField,
-    Avatar,
     Button,
-    TextareaAutosize,
-    Hidden,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemAvatar,
     CircularProgress,
     Grid,
-    Box
 } from '@material-ui/core';
 
-import {
-    Twitter as TwitterIcon,
-    HomeRounded as HomeRoundedIcon,
-    NotificationsNoneRounded as NotificationsNoneRoundedIcon,
-    MailOutlineRounded as MailOutlineRoundedIcon,
-    ListAltOutlined as ListAltOutlinedIcon,
-    PersonOutlineOutlined as PersonOutlineOutlinedIcon,
-    FavoriteBorder as FavoriteBorderIcon,
-    RepeatSharp as RepeatSharpIcon,
-    ChatBubbleOutline as ChatBubbleOutlineIcon,
-    Search as SearchIcon,
-    PhotoOutlined as PhotoOutlinedIcon,
-    GifOutlined as GifOutlinedIcon,
-    Add as AddIcon,
-    SubjectOutlined as SubjectOutlinedIcon,
-    SentimentSatisfiedAltOutlined as SentimentSatisfiedOutlinedIcon,
-    EventNoteOutlined as EventNoteOutlinedIcon,
-    Image as ImageIcon,
-    Work as WorkIcon,
-    BeachAccess as BeachAccessIcon
-} from '@material-ui/icons';
+import { Twitter as TwitterIcon, Search as SearchIcon } from '@material-ui/icons';
 
 import { useStylesHome, useStylesSignIn } from '../style';
 import { Tags } from '../components/Tags';
@@ -56,12 +26,19 @@ import { FullTweet } from '../components/FullTweet';
 import {Route, Link} from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
 import { RandomUsers } from '../components/RandomUsers';
+import { selectUserState } from '../store/ducks/user/selectors';
+import SideUserInfo from '../components/SideUserInfo';
 
-const UserPage = (): JSX.Element => {
+
+const Home = (): JSX.Element => {
     const classes = useStylesHome();
     const classesSignIn = useStylesSignIn();
     const dispatch = useDispatch();
     const tweets = useSelector(selectTweetsItems)
+    const user = useSelector(selectUserState)
+    
+    const userData = user && user?.data 
+
     const isLoading = useSelector(selectIsTweetsLoading)
     const [open, setOpen] = React.useState(false);  
 
@@ -73,16 +50,21 @@ const UserPage = (): JSX.Element => {
         setOpen(false);
     };
     
+    console.log(user);
+    
 
     useEffect(() => {
         dispatch(fetchTweets());
         dispatch(fetchTags());
     }, [dispatch])
+
+    
     
     return (
         <Grid className={classes.fsd} container spacing={2}>
             <Grid className={classes.sideBarWrapp} item xs={3}>
                 <div>
+
                     <Link to={`/home`}>
                         <TwitterIcon className={classes.sideBarLogo}/>
                     </Link>
@@ -103,12 +85,8 @@ const UserPage = (): JSX.Element => {
                     </ModalBlock>
                 </div>
 
-                <ListItem className={classes.sideBarUserInfo}>
-                    <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="https://readmyanswers.com/wp-content/uploads/2018/02/8.-Lob-Cut-e1517864818433.jpg" />
-                    </ListItemAvatar>
-                    <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-                </ListItem>
+                <SideUserInfo classes={classes} userData={userData}/>
+                
             </Grid>
             <Grid className={classes.contentWrap} item xs={6}>
                 <div className={classes.mainTitle}>
@@ -131,7 +109,7 @@ const UserPage = (): JSX.Element => {
                         {
                             isLoading ? <div className={classes.tweetsLoading}><CircularProgress/></div> : 
                             tweets.map(tweet => (
-                                <Link to={`/home/tweet/${tweet._id}`}>
+                                <Link to={`/home/tweet/${tweet._id}`} style={{textDecoration: "none"}}>
                                     <Tweet key={tweet._id} {...tweet}/>
                                 </Link>
                             ))
@@ -167,4 +145,4 @@ const UserPage = (): JSX.Element => {
     )
 }
 
-export default UserPage
+export default Home

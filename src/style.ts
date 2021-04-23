@@ -1,12 +1,174 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+export const useStylesMain = makeStyles({
+    centred: {
+        display: "flex",
+        width: "100%",
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center"
+
+    }
+});
+
+
+
 export const useStylesHome = makeStyles({
+    sideUserProfile: {
+        height: 58,
+        width: 280,
+        marginBottom: 10,
+        "& svg": {
+            color: "#fff"
+        },
+        "&:hover": {
+            backgroundColor: "rgb(25, 145, 218, 0.2)",
+        },
+        "& .MuiListItem-gutters": {
+            paddingLeft: 5,
+
+        }
+    },
+    sideBarUserInfoModal: {
+        background: "#000",
+        color: "#fff",
+        borderRadius: 15,
+        boxShadow: "rgb(255 255 255 / 20%) 0px 0px 15px, rgb(255 255 255 / 15%) 0px 0px 3px 1px;",
+        marginBottom: 20,
+        width: 280
+    },
+
+    sideBarUserInfoModalItem: {
+        "& span": {
+            color: "#fff",
+            fontWeight: 400,
+            fontSize: 15,
+        }
+    },
+    sideBarUserInfoModalDivider: {
+        backgroundColor: "rgb(47, 51, 54, 1)"
+    },
+    dWrap: {
+        color: "#fff"
+    },
+    headerPhoto: {
+        height: 200,
+        width: "100%"
+    },
+    userBtn: {
+        color: "#fff",
+        marginTop: 10
+    },
+    userFollowBtn: {
+        width: 100,
+        height: 40,
+        fontWeight: 600,
+        fontSize: 15,
+        marginLeft: 8
+    },
+    userBtnIcon: {
+        color: "rgba(29,161,242,1.00)",
+        border: "2px solid rgba(29,161,242,1.00)",
+        width: 38,
+        height: 38,
+        marginLeft: 8
+    },
+    userAvatar: {
+        width: 130,
+        height: 130,
+        marginTop: "-65px",
+        border: "2px solid #000)",
+
+    },
+    userFullName: {
+        color: "#fff",
+        fontWeight: 600,
+        fontSize: 20,
+        lineHeight: "1.2",
+        marginTop: 10
+    },
+    userName: {
+        color: "rgb(110, 118, 125)",
+        fontWeight: 400,
+        fontSize: 15 
+    },
+    userBio: {
+        color: "#fff",
+        marginTop: 10,
+        fontWeight: 400,
+        fontSize: 15,
+        marginBottom: 5,
+    },
+    userBioLink: {
+        color: "rgba(29,161,242,1.00)",
+        marginLeft: 15,
+        fontWeight: 400,
+        fontSize: 15,
+        textDecoration: "none"
+    },
+    userBirthdayDate: {
+        color: "rgb(110, 118, 125)",
+
+        fontWeight: 400,
+        fontSize: 13,
+        alignItems: "center",
+        display: "flex",
+        "& svg": {
+            width: 17,
+            marginRight: 10
+        }
+    },
+    userPageTabs: {
+        backgroundColor: "transparent",
+        width: "100%",
+        borderBottom: "0.1px solid #2f3336",
+        marginTop: 10
+    },
+    userPageTab: {
+        color: "rgb(110, 118, 125)",
+        fontWeight: 600,
+        fontSize: 14,
+        textTransform: "none",
+        "&:hover": {
+            backgroundColor: "rgb(25, 145, 218, 0.2)",
+            color:  "rgb(25, 145, 218)"
+        }
+    },
+
+    userRegisterDate: {
+        color: "rgb(110, 118, 125)",
+        marginLeft: 15,
+        fontWeight: 400,
+        fontSize: 13,
+        display: "flex",
+        alignItems: "center",
+        "& svg": {
+            width: 17,
+            marginRight: 10
+        }
+    },
     contentWrap: {
         border: "0.5px solid #2f3336",
         borderBottom: "none",
         maxHeight: "100%",
         padding: "0px !important"
     },
+    userFollow: {
+        marginTop: 5,
+        marginRight: 15,
+        color: "#fff",
+        fontWeight: 600,
+        fontSize: 16,
+        "& span": {
+            color: "rgb(110, 118, 125)",
+            fontWeight: 400,
+            fontSize: 15 
+        }
+    },
+
+
+
+
     wrpper: {
         display: "flex",
         height: "100vh"
@@ -332,7 +494,26 @@ export const useStylesHome = makeStyles({
         overflowY: "scroll",
         height: "100%"
     },
-    
+    tweetFormImageWrap: {
+        display: "flex",
+        width: "90%",
+        marginLeft: 58,
+        boxSizing: "border-box",
+        justifyContent: "space-between",
+        flexWrap: "wrap"
+    },
+    tweetFormImage: {
+        marginBottom: 15,
+        width: "49%",
+        borderRadius: 20,
+        height: 280,
+    },
+    tweetFormImageMini: {
+        marginBottom: 15,
+        width: "49%",
+        borderRadius: 20,
+        height: 140,
+    }
 });
 
 
@@ -410,10 +591,10 @@ export const useStylesSignIn = makeStyles({
     modalInput: {
         marginBottom: 20,
         color: "#fff",
+        background: "ransparent",
         "& input": {
             color: "#fff",
-
-
+            background: "ransparent"
         },
         "& input::placeholder": {
             color: "#fff",
@@ -463,13 +644,17 @@ export const useStylesTweet = makeStyles({
         borderBottom: "none", 
         padding: 20,
         paddingBottom: 0,
+    },
+    tweetAvatar: {
+        width: 48,
+        height: 48,
 
     },
     tweetUserName: {
         fontSize: 15,
-        marginLeft: 20,
+        marginLeft: 11,
         marginBottom: 3,
-
+        textDecoration: "none",
         color: "rgb(110, 118, 125)",
         "& b": {
             color: "#ffffff",
@@ -480,9 +665,11 @@ export const useStylesTweet = makeStyles({
     tweetContent: {
         color: "#ffffff",
         fontSize: 15,
-        marginLeft: 20,
-        lineHeight: 1.3
-        
+        marginLeft: 11,
+        textDecoration: "none",
+        lineHeight: 1.3,
+        wordWrap: "break-word",
+        width: 528
     },
     tweetBtns: {
         marginLeft: 46,
@@ -500,6 +687,15 @@ export const useStylesTweet = makeStyles({
             fontSize: 19,
 
         }
+    },
+    tweetImage: {
+        width: "50%",
+        borderRadius: 10,
+        height: 280,
+    },
+    tweetImageWrap: {
+        marginLeft: 11,
+        marginTop: 20
     }
 });
 
@@ -577,5 +773,49 @@ export const useStylesFullTweet = makeStyles({
             fontSize: 24,
 
         }
+    }
+});
+
+
+
+export const useStylesUserPage = makeStyles({
+    dWrap: {
+
+    },
+    headerUserPhoto: {
+
+    },
+    userBtn: {
+
+    },
+    userBtnIcon: {
+        border: "1px solid"
+    },
+    userFullName: {
+
+    },
+    userName: {
+
+    },
+    userBio: {
+
+    },
+    userBirthdayDate: {
+
+    },
+    userRegisterDate: {
+
+    },
+    contentWrap: {
+        border: "0.5px solid #2f3336",
+        borderBottom: "none",
+        maxHeight: "100%",
+        padding: "0px !important"
+    },
+    userFollow: {
+
+    },
+    headerPhoto: {
+
     }
 });

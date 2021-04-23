@@ -26,9 +26,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddTweet } from '../store/ducks/tweets/actionCreatores';
 import { selectAddFormState } from '../store/ducks/tweets/selectors';
 import { AddFormState } from '../store/ducks/tweets/contracts/state';
+import UploadAria from './UploadAria';
+import { uploadImage } from '../utils/uploadImage';
 
 interface TweetFormProps {
     classes: ReturnType<typeof useStylesHome>;
+}
+
+export interface ImageObj {
+    blobUrl: string,
+    file: File
 }
 
 export const AddTweetForm: React.FC<TweetFormProps> = ({
@@ -36,6 +43,7 @@ export const AddTweetForm: React.FC<TweetFormProps> = ({
 }: TweetFormProps): React.ReactElement => {
     const [text, setText] = useState<string>("");
     const [visibleNotification, setVisibleNotification] = useState<boolean>(false);
+    const [images, setImages] = useState<ImageObj[]>([])
 
     const dispatch = useDispatch();
     const addFormState = useSelector(selectAddFormState)
@@ -47,9 +55,16 @@ export const AddTweetForm: React.FC<TweetFormProps> = ({
         }
     })
 
-    const handleClickAddTweet = () => {
-        dispatch(fetchAddTweet(text))
+    
+    const handleClickAddTweet = async () => {
         setText('');
+        setImages([]);
+        await uploadImage(images).then(data => {
+
+            dispatch(fetchAddTweet({text: text, images: data}))
+        })
+        
+
     }   
 
     const handleCloseNotification = () => {
@@ -78,13 +93,17 @@ export const AddTweetForm: React.FC<TweetFormProps> = ({
                 </div>
             </div>
 
+            <div className={classes.tweetFormImageWrap}>
+                {images && images.map((obj: ImageObj) => (
+                    <img className={classes.tweetFormImageMini} src={obj.blobUrl} alt="Photo"/>
+                ))}
+            </div>
+
             {text.length ? <Divider light/> : null}
             <div className={classes.dFlexSB}>
                 <div className={classes.tweetFormBtns}>
-                    <IconButton>
-                        <PhotoOutlinedIcon/>
-                    </IconButton>
-
+                    
+                    <UploadAria onChangeImages={(images: any) => setImages(images)}/>
                     <IconButton>
                         <GifOutlinedIcon/>
                     </IconButton>

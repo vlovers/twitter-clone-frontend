@@ -48,7 +48,12 @@ export const theme = createMuiTheme({
             },
             outlinedPrimary: {
                 borderColor: 'rgb(29, 161, 243)'
-            }
+            },
+        },
+        MuiInputLabel: {
+            root: {
+              color: "#fff",
+            },
         },
         MuiFilledInput: {
             underline: {
@@ -61,9 +66,15 @@ export const theme = createMuiTheme({
                 }
             },
             input: {
-                backgroundColor: 'rgb(245, 248, 250)'
+                backgroundColor: 'transparent',
+                border: "1px solid #2f3336",
+                "&:hover": {
+                    border: "1px solid #2f3336",
+                }
+
             }
         },
+        
         MuiDialog: {
             paper: {
                 borderRadius: 15

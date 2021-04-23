@@ -14,6 +14,7 @@ export const tweetReducer = produce ((draft: Draft<TweetState>, action: TweetAct
             draft.item = action.payload;
             draft.LoadingStatus = LoadingStatus.LOADED;
             break;
+            
         case TweetActionsType.FETCH_TWEET_DATA:
             draft.item = undefined;
             draft.LoadingStatus = LoadingStatus.LOADED;

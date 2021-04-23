@@ -41,7 +41,7 @@ export const FullTweet: React.FC = (): JSX.Element => {
             <div className={classes.tweet}>
                 <div>
                     <div className={classes.dFlex}>
-                        <Avatar className={classes.userAvatar} alt="Remy Sharp" src={tweetData.user?.avatarUrl} />
+                        <Avatar className={classes.userAvatar} alt="Remy Sharp" src={tweetData.user?.avatar} />
                         <div>
                             <Typography variant="h6" className={classes.tweetUserName}>
                             <b>{tweetData.user.fullname}</b>

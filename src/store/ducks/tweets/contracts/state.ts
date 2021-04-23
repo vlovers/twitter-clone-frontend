@@ -13,13 +13,14 @@ export enum AddFormState {
 }
 
 export interface Tweet {
+    images: any;
     _id: string;
     text: string;
     createdAt: string;
     user: {
         fullname: string;
         username: string;
-        avatarUrl: string;
+        avatar: string;
     }
 }
 

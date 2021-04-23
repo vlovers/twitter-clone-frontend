@@ -18,8 +18,9 @@ export interface Tweet {
     user: {
         fullname: string;
         username: string;
-        avatarUrl: string;
-    }
+        avatar: string;
+    },
+    images: string[]
 }
 
 export interface TweetsState {

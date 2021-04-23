@@ -1,49 +1,53 @@
 import React, { useEffect } from 'react';
-import SignIn from './pages/SignIn/SignIn';
-import  Home  from './pages/Home';
+import SignIn from './page/SignIn/SignIn';
+import  Home  from './page/Home';
 import { useDispatch, useSelector } from 'react-redux';
-import { authApi } from './services/api/authApi';
-import { setUserData } from './store/ducks/user/actionCreatores';
+import { userApi } from './services/api/userApi';
+import { fetchUserData, setUserData } from './store/ducks/user/actionCreatores';
 import { Route, Switch, useHistory } from 'react-router-dom';
-import { selectIsAuth } from './store/ducks/user/selectors';
+import { selectIsAuth, selectUserStatus } from './store/ducks/user/selectors';
+import TwitterIcon from '@material-ui/icons/Twitter';
 
-import UserPage from './pages/UserPage';
+import UserPage from './page/UserPage';
+import { LoadingStatus } from './store/ducks/types';
+import { CircularProgress } from '@material-ui/core';
+import { useStylesMain } from './style';
+
 function App() {
+    const classes = useStylesMain();
+    const history = useHistory();
     const dispatch = useDispatch();
     const isAuth = useSelector(selectIsAuth);
-
-    const history = useHistory()
-    
-    
-    const checkAuth = async () => {
-        
-        try {
-            const {data} = await authApi.getMe();
-            dispatch(setUserData(data))
-        } catch (error) {
-
-            
-        }
-    }
+    const loadingStatus = useSelector(selectUserStatus);
+    const isReady = loadingStatus !== LoadingStatus.NEVER && loadingStatus !== LoadingStatus.LOADING
 
     useEffect(() => {
-        checkAuth()
+        dispatch(fetchUserData());
     }, [])
 
     useEffect(() => {
-        if (isAuth) {
+        if (!isAuth && isReady) {
+            history.push('/signin')
+        } else if (isAuth && isReady) {
             history.push('/home')
-        }
+        } 
         
-    }, [isAuth])
+    }, [isAuth, isReady])
 
+    if (!isReady) {
+        return(
+            <div className={classes.centred}>
+                <TwitterIcon style={{fontSize: "70px", color: "#fff"}} />
+            </div>
+        )
+    }
     return (
         <div style={{background: "#000", overflow: "hidden"}}>
-            <Switch>
+            {<Switch>
                 <Route path="/signin" component={SignIn} exact/>
-                <Route path="/home" component={Home}/>
+                <Route path="/home" component={UserPage}/>
                 <Route path="/user" component={UserPage}/>
-            </Switch>
+            </Switch>}
         </div>
     );
 }

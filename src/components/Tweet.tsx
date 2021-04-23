@@ -12,27 +12,32 @@ interface TweetProps {
     _id: string,
     text: string;
     createdAt: string,
+    images: any,
     user: {
         fullname: string;
         username: string;
-        avatarUrl: string;
-    }
+        avatar: string;
+    },
 }
 
-export const Tweet: React.FC<TweetProps> = ({ _id, text, createdAt, user }: TweetProps) => {
+export const Tweet: React.FC<TweetProps> = ({ _id, images, text, createdAt, user }: TweetProps) => {
     const classes = useStylesTweet();
     
+    const onLike = () => {
+        
+    }
+
     return (
         <div className={classes.tweet}>
             <div className={classes.dFlex}>
                 <div>
-                    <Avatar alt="Remy Sharp" src={user?.avatarUrl} />
+                    <Avatar className={classes.tweetAvatar} alt="Remy Sharp" src={user?.avatar} />
                 </div>
                 <div>
                     <div>
                     <Typography variant="h6" className={classes.tweetUserName}>
                     <b>{user.fullname}</b>
-                    {user.username} · {formatDate(new Date(createdAt))}
+                    @{user.username} · {formatDate(new Date(createdAt))}
                     </Typography>
                 
 
@@ -40,11 +45,15 @@ export const Tweet: React.FC<TweetProps> = ({ _id, text, createdAt, user }: Twee
                     <Typography className={classes.tweetContent} variant="h6">
                         {text}
                     </Typography>
+
+                    <div className={classes.tweetImageWrap}>
+                        { images && images.map((image: any) => (<img className={classes.tweetImage} src={image.url} alt=""/>))}
+                    </div>
                 </div>
             </div>
             <div className={classes.tweetBtns}>
                 <IconButton>
-                    <FavoriteBorderIcon/>
+                    <FavoriteBorderIcon onClick={onLike}/>
                 </IconButton>
                 <IconButton>
                     <RepeatSharpIcon/>

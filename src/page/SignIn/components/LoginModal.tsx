@@ -14,7 +14,7 @@ import { Color } from '@material-ui/lab/Alert';
 
 import { ModalBlock } from '../../../components/Modal';
 import { useStylesSignIn } from '../../../style';
-import { authApi } from '../../../services/api/authApi';
+import { userApi } from '../../../services/api/userApi';
 import { Notification } from '../../../components/Notification'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSignIn } from '../../../store/ducks/user/actionCreatores';
